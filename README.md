@@ -20,7 +20,7 @@ $ python3 setup.py install
 # Master branch
 $ pip3 install git+https://github.com/tomomotofactory/cdataset.git
 # Specific tag (or branch, commit hash)
-$ pip3 install git+https://github.com/tomomotofactory/cdataset@v0.2.1
+$ pip3 install git+https://github.com/tomomotofactory/cdataset@v0.1.0
 ```
 
 ### Sample Code

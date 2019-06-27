@@ -1,8 +1,23 @@
-import shutil
 from pathlib import Path
 import os
+import json
+import shutil
 import pandas as pd
+import numpy as np
+from sklearn.model_selection import KFold
 from arff2pandas import a2p
+
+
+class NumpyToJsonEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        else:
+            return super(NumpyToJsonEncoder, self).default(obj)
 
 
 def csv_to_benchmark_data(input_file: str, data_set_name: str, target_name: str):
@@ -30,6 +45,16 @@ def csv_to_benchmark_data(input_file: str, data_set_name: str, target_name: str)
         f.write(target_name)
 
     shutil.copy(str(path_input_file), str(path_dataset.joinpath('df.arff')))
+
+    kf = KFold(n_splits=4, random_state=71, shuffle=True)
+    kf_index_list = [{"train": train_index, "test": test_index} for train_index, test_index in kf.split(df)]
+    with path_output.joinpath('cv4_index.json').open(mode='w') as f:
+        json.dump({"cv_list": kf_index_list}, f, cls=NumpyToJsonEncoder)
+
+    kf = KFold(n_splits=8, random_state=71, shuffle=True)
+    kf_index_list = [{"train": train_index, "test": test_index} for train_index, test_index in kf.split(df)]
+    with path_output.joinpath('cv8_index.json').open(mode='w') as f:
+        json.dump({"cv_list": kf_index_list}, f, cls=NumpyToJsonEncoder)
 
 
 csv_to_benchmark_data('input/jungle_chess/jungle_chess_2pcs_raw_endgame_complete.arff',
@@ -198,4 +223,4 @@ csv_to_benchmark_data('input/breast_w/openml_phpJNxH0q.arff',
                       'breast_w', 'Class')
 
 csv_to_benchmark_data('input/balance_scale/dataset_11_balance-scale.arff',
-                      'balance_scale', 'Class')
+                      'balance_scale', 'class')

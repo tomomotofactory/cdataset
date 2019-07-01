@@ -1,1 +1,1 @@
-TR
+band_type

@@ -115,7 +115,7 @@ csv_to_benchmark_data('input/cjs/phpDAC5gS.arff',
                       'cjs', 'TR')
 
 csv_to_benchmark_data('input/cylinder_bands/phpAz9Len.arff',
-                      'cylinder_bands', 'TR')
+                      'cylinder_bands', 'band_type')
 
 csv_to_benchmark_data('input/adult/phpMawTba.arff',
                       'adult', 'class')

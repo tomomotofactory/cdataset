@@ -160,7 +160,7 @@ csv_to_benchmark_data('input/artificial_characters/phpPQrHPH.arff',
                       'artificial_characters', 'Class')
 
 csv_to_benchmark_data('input/kc2/kc2.arff',
-                      'kc2', 'Class')
+                      'kc2', 'problems')
 
 csv_to_benchmark_data('input/mozilla4/mozilla4.arff',
                       'mozilla4', 'state')
